@@ -23,3 +23,5 @@ resources:
 ----
 
 See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-2m-only[platform-alteration-hugepages-2m-only], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#platform-alteration-hugepages-config[platform-alteration-hugepages-config]
+
+**Impact of not following this practice:** Using inappropriate hugepage sizes can cause memory allocation failures and reduce overall system performance and stability. Manual hugepage configuration bypasses cluster management, can cause node instability, and creates configuration drift issues.

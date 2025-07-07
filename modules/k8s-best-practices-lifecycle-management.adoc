@@ -1,0 +1,64 @@
+[id="k8s-best-practices-lifecycle-management"]
+= Lifecycle Management
+
+Proper lifecycle management ensures that workloads can be reliably deployed, updated, scaled, and removed from the cluster. This includes supporting high availability, graceful startup and shutdown, and proper health monitoring.
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads must implement proper health probes (liveness, readiness, and startup).
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-liveness-probe[lifecycle-liveness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-readiness-probe[lifecycle-readiness-probe], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-startup-probe[lifecycle-startup-probe]
+
+**Impact of not following this practice:** Missing liveness probes prevent Kubernetes from detecting and recovering from application deadlocks and hangs. Missing readiness probes can cause traffic to be routed to non-ready pods, resulting in failed requests and poor user experience. Missing startup probes can cause slow-starting applications to be killed prematurely, preventing successful application startup.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads should support horizontal scaling operations.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-deployment-scaling[lifecycle-deployment-scaling], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-statefulset-scaling[lifecycle-statefulset-scaling]
+
+**Impact of not following this practice:** Deployment scaling failures prevent horizontal scaling operations, limiting application elasticity and availability during high load. StatefulSet scaling issues can prevent proper data persistence and ordered deployment of stateful applications.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads must implement proper lifecycle hooks for graceful startup and shutdown.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-poststart[lifecycle-container-poststart], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-container-prestop[lifecycle-container-prestop]
+
+**Impact of not following this practice:** Missing PostStart hooks can cause containers to start serving traffic before proper initialization, leading to application errors. Missing PreStop hooks can cause ungraceful shutdowns, data loss, and connection drops during container termination.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads should be deployed using proper controller types (Deployment, StatefulSet).
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-owner-type[lifecycle-pod-owner-type]
+
+**Impact of not following this practice:** Naked pods and DaemonSets lack proper lifecycle management, making updates, scaling, and recovery operations difficult or impossible.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads must support pod recreation for high availability.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-pod-recreation[lifecycle-pod-recreation]
+
+**Impact of not following this practice:** Failed pod recreation indicates poor high availability configuration, leading to potential service outages during node failures.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads should configure proper image pull policies.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#lifecycle-image-pull-policy[lifecycle-image-pull-policy]
+
+**Impact of not following this practice:** Incorrect image pull policies can cause deployment failures when image registries are unavailable or during network issues.
+==== 

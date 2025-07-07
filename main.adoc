@@ -66,6 +66,8 @@ include::modules/k8s-best-practices-ports-reserved-by-openshift.adoc[leveloffset
 
 include::modules/k8s-best-practices-user-plane-cnfs.adoc[leveloffset=+3]
 
+include::modules/k8s-best-practices-networking-connectivity.adoc[leveloffset=+3]
+
 include::modules/k8s-best-practices-developer-guide.adoc[leveloffset=+1]
 
 include::modules/k8s-best-practices-refactoring.adoc[leveloffset=+2]
@@ -127,6 +129,8 @@ include::modules/k8s-best-practices-liveness-readiness-and-startup-probes.adoc[l
 include::modules/k8s-best-practices-affinity-anti-affinity.adoc[leveloffset=+5]
 
 include::modules/k8s-best-practices-upgrade-expectations.adoc[leveloffset=+5]
+
+include::modules/k8s-best-practices-lifecycle-management.adoc[leveloffset=+5]
 
 include::modules/k8s-best-practices-taints-and-tolerations.adoc[leveloffset=+5]
 

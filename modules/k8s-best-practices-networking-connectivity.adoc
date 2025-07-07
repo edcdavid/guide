@@ -1,0 +1,54 @@
+[id="k8s-best-practices-networking-connectivity"]
+= Networking and Connectivity
+
+Networking is a critical component of any workload deployment. Proper network configuration ensures reliable communication between workload components and maintains security boundaries.
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads must support basic IPv4 connectivity on the default OpenShift network.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-icmpv4-connectivity[networking-icmpv4-connectivity]
+
+**Impact of not following this practice:** Failure indicates potential network isolation issues that could prevent workload components from communicating, leading to service degradation or complete application failure.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads should implement default deny-all network policies for enhanced security.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-network-policy-deny-all[networking-network-policy-deny-all]
+
+**Impact of not following this practice:** Without default deny-all network policies, workloads are exposed to lateral movement attacks and unauthorized network access, compromising security posture and potentially enabling data breaches.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads must not use ports reserved by OpenShift or partner systems.
+
+See test cases link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-ocp-reserved-ports-usage[networking-ocp-reserved-ports-usage], link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-reserved-partner-ports[networking-reserved-partner-ports]
+
+**Impact of not following this practice:** Using OpenShift-reserved ports can cause critical platform services to fail, potentially destabilizing the entire cluster. Using reserved ports can cause port conflicts with essential platform services, leading to service startup failures and unpredictable application behavior.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Containers should declare all ports they use in their specification.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-undeclared-container-ports-usage[networking-undeclared-container-ports-usage]
+
+**Impact of not following this practice:** Undeclared ports can be blocked by security policies, causing unexpected connectivity issues and making troubleshooting difficult.
+====
+
+.Workload requirement
+[IMPORTANT]
+====
+Workloads using SR-IOV interfaces must be properly configured with restart labels.
+
+See test case link:https://github.com/test-network-function/cnf-certification-test/blob/main/CATALOG.md#networking-restart-on-reboot-sriov-pod[networking-restart-on-reboot-sriov-pod]
+
+**Impact of not following this practice:** Without proper restart labels, SRIOV-enabled pods may fail to restart correctly after node reboots, leading to application downtime and service unavailability.
+==== 
